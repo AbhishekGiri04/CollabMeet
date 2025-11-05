@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ca226b34153161.56c5d4776abb7.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/mobile-responsive.css">
+    <title>CollabMeet - Collaborate. Communicate. Create.</title>
+    <link rel="icon" href="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ca226b34153161.56c5d4776abb7.png" type="image/png">
+</head>
+
+<body>
+    <script>
+        if (performance.navigation.type === 1) {
+            window.location.href = 'loading.html';
+        }
+    </script>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
+            <div id="toast-icon" class="w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fas fa-times text-white"></i>
+            </div>
+            <div class="flex-1">
+                <div id="toast-title" class="font-medium text-gray-900"></div>
+                <div id="toast-message" class="text-sm text-gray-600"></div>
+            </div>
+            <button onclick="hideToast()" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <!-- header section  -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="#" class="flex items-center gap-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-10 h-10">
+                    <span class="text-2xl font-semibold text-gray-800">CollabMeet</span>
+                </a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="pages/product-features.html" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors">Features</a>
+                    <a href="pages/subscription-plans.html" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors">Pricing</a>
+                    <a href="pages/contact.html" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors">Contact</a>
+                    <a href="pages/documentation.html" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors">Documentation</a>
+                </nav>
+                <button type="button" onclick="startWhiteboardSession()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Smart Whiteboard
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Content Section -->
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                        CollabMeet - Enterprise Collaboration Platform
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Transform your team's productivity with our comprehensive collaboration suite. 
+                        Seamlessly integrate video conferencing, AI-powered digital whiteboards, 
+                        real-time messaging, and intelligent workflow tools in one unified platform.
+                    </p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col gap-4 mb-8">
+                        <button type="button" onclick="startNewMeeting()"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-video"></i>
+                            Start Professional Meeting
+                        </button>
+                        
+                        <div class="flex">
+                            <input type="text" id="join_meeting_input"
+                                class="px-4 py-3 border border-gray-300 rounded-l-lg text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Enter meeting ID">
+                            <button onclick="joinVideoSession()" 
+                                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-r-lg font-semibold transition-colors">
+                                Join Session
+                            </button>
+                        </div>
+                        
+                        <div class="flex">
+                            <input type="text" id="join_whiteboard_input"
+                                class="px-4 py-3 border border-gray-300 rounded-l-lg text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Enter whiteboard ID">
+                            <button onclick="joinWhiteboardSession()" 
+                                class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-r-lg font-semibold transition-colors">
+                                Join Whiteboard
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Features -->
+                    <div class="text-center lg:text-left">
+                        <p class="text-gray-700 font-medium mb-2">Professional video meetings with integrated collaborative whiteboard</p>
+                        <p class="text-sm text-gray-500">No downloads required • Works in any browser • Enterprise ready</p>
+                    </div>
+                </div>
+                
+                <!-- Image Section -->
+                <div class="lg:w-1/2">
+                    <img src="./assets/images/hero-collaboration.webp" alt="CollabMeet Platform" 
+                        class="w-full h-auto rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="bg-gray-50 py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 cursor-pointer" onclick="toggleCollabMeetContent()">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">See what you can do with CollabMeet</h2>
+                <i id="dropdown-arrow" class="fa-solid fa-angle-down text-2xl text-blue-600 transition-transform duration-300"></i>
+            </div>
+        </div>
+    </section>
+
+    <div id="collabmeet-content" class="hidden bg-white">
+        <!-- Meet Safely -->
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Meet Safely</h2>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            CollabMeet uses enterprise-grade security to secure your information and safeguard your
+                            privacy. CollabMeet video conferences are encrypted in transit, and our array of safety measures are
+                            continuously updated for added protection.
+                        </p>
+                        <a href="pages/product-features.html" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                            Learn more about CollabMeet security
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img src="./assets/images/security-features.webp" alt="Security Features" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Draw from anywhere -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Draw from anywhere</h2>
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            Bring your team together on CollabBoard's infinite canvas. Brainstorm ideas, 
+                            create diagrams, sketch prototypes, or teach concepts visually.
+                        </p>
+                        <p class="text-lg text-gray-600 mb-8">
+                            Perfect for businesses, schools, and creative teams who need to collaborate in real-time.
+                        </p>
+                        <a href="pages/subscription-plans.html" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                            See CollabMeet plans and pricing
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img src="./assets/images/digital-whiteboard.webp" alt="Digital Whiteboard" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet on any device -->
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Meet on any device</h2>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            Invited guests can join an online video conference from their computer using any modern web
+                            browser—no software to install. On mobile devices, they can join from the CollabMeet app. Guests
+                            can even join meetings from any smart device.
+                        </p>
+                        <a href="pages/product-features.html" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                            Enable hybrid work with platform integrations
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img src="./assets/images/cross-platform.webp" alt="Cross-platform Access" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet clearly -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Meet clearly</h2>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            CollabMeet adjusts to your network speed, ensuring high quality video calls wherever you are. 
+                            New AI enhancements keep your calls clear even when your surroundings aren't.
+                        </p>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img src="./assets/images/hd-video-quality.webp" alt="HD Video Quality" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet with everyone -->
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Meet with everyone</h2>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            With live captions powered by advanced speech recognition technology, CollabMeet makes meetings more
+                            accessible. For non-native speakers, hearing impaired participants, or just noisy environments, live
+                            captions make it easy for everyone to follow along (available in English only).
+                        </p>
+                        <a href="pages/product-features.html" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+                            Learn more about CollabMeet accessibility
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img src="./assets/images/accessibility-features.webp" alt="Accessibility Features" class="w-full h-auto rounded-2xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- footer  -->
+    <footer class="text-gray-600 body-font bg-white border-t border-gray-200">
+        <div class="container md:px-5 py-8 pt-10 mx-auto flex items-center justify-center md:flex-row flex-col">
+            <a href="#" class="flex items-center gap-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-10 h-10 cursor-pointer">
+                <span class="text-2xl font-bold text-gray-800">CollabMeet</span>
+            </a>
+            <nav class="md:mx-10 md:mt-0.5 mx-10 mt-4 flex flex-wrap items-center text-base justify-center"
+                aria-label="footer elements">
+
+                <a href="pages/about.html"
+                    class="md:mr-5 mr-3 text-gray-500 font-medium cursor-pointer hover:text-gray-600">About
+                    CollabMeet</a>
+
+                <a href="pages/privacy.html"
+                    class="md:mr-5 mr-3 text-gray-500 font-medium cursor-pointer hover:text-gray-600">Privacy</a>
+
+                <a href="pages/terms.html"
+                    class="md:mr-5 mr-3 text-gray-500 font-medium cursor-pointer hover:text-gray-600">Terms</a>
+
+            </nav>
+        </div>
+    </footer>
+
+    <script src="./assets/js/homepage.js"></script>
+</body>
+
+</html>

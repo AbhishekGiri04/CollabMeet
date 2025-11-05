@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Features - CollabMeet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" type="image/png">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-10 h-10">
+                    <span class="text-2xl font-bold text-gray-900">CollabMeet</span>
+                </a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="product-features.html" class="text-blue-600 font-semibold">Features</a>
+                    <a href="subscription-plans.html" class="text-gray-600 hover:text-blue-600">Pricing</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-blue-600">Contact</a>
+                    <a href="documentation.html" class="text-gray-600 hover:text-blue-600">Documentation</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800 text-white py-24">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <span class="inline-block bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-medium mb-6 border border-white/20">
+                    ✨ Real-Time Collaboration Platform
+                </span>
+            </div>
+            <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                Enterprise Features
+            </h1>
+            <p class="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                Experience the future of collaboration with our AI-powered whiteboard and crystal-clear video conferencing. 
+                Built for teams that demand excellence, security, and seamless integration.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="window.location.href='../index.html'" class="bg-white text-purple-600 px-10 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl">
+                    Try Live Demo
+                </button>
+                <button onclick="window.location.href='contact.html'" class="border-2 border-white/40 backdrop-blur-sm text-white px-10 py-4 rounded-lg font-semibold hover:bg-white/20 transition-all">
+                    Schedule Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Real-Time Whiteboard -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-pen-fancy text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Real-Time Whiteboard</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Collaborative whiteboard with live drawing, shapes, and instant synchronization across all participants
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Live Sync</span>
+                        <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-medium">Multi-User</span>
+                    </div>
+                </div>
+
+                <!-- WebRTC Video Calls -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-video text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">WebRTC Video Calls</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Peer-to-peer video conferencing with screen sharing, mute controls, and seamless whiteboard integration
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">P2P</span>
+                        <span class="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full text-sm font-medium">Screen Share</span>
+                    </div>
+                </div>
+
+                <!-- Session Management -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-users-cog text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Session Management</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Advanced session control with participant management, whiteboard permissions, and real-time collaboration
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Admin Control</span>
+                        <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-medium">Permissions</span>
+                    </div>
+                </div>
+
+                <!-- Live Chat System -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-comments text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Live Chat System</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Integrated messaging with real-time delivery, system notifications, and participant status tracking
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">Instant</span>
+                        <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">WebSocket</span>
+                    </div>
+                </div>
+
+                <!-- Browser-Based Platform -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-globe text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Browser-Based Platform</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        No downloads required - works instantly on any modern browser with responsive design for all devices
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">No Install</span>
+                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Responsive</span>
+                    </div>
+                </div>
+
+                <!-- Advanced Tools -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-tools text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Advanced Tools</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Complete drawing toolkit with pen, eraser, shapes, export functionality, and collaborative control transfer
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">Drawing</span>
+                        <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">Export</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="bg-gradient-to-r from-gray-900 via-purple-900 to-indigo-900 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <span class="inline-block bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-medium mb-6 border border-white/20">
+                    ⭐️ Experience Real Collaboration
+                </span>
+            </div>
+            <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                Ready to Experience Real-Time Collaboration?
+            </h2>
+            <p class="text-gray-300 mb-10 max-w-3xl mx-auto text-lg leading-relaxed">
+                Don't just read about it - experience our live whiteboard and video calling platform right now. 
+                No signup required, no downloads needed.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button onclick="window.location.href='../index.html'" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-12 py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 shadow-2xl">
+                    Try Live Demo Now
+                </button>
+                <button onclick="window.location.href='contact.html'" class="border-2 border-white/40 backdrop-blur-sm text-white px-10 py-4 rounded-lg font-semibold hover:bg-white/20 transition-all">
+                    Schedule Enterprise Demo
+                </button>
+                <button onclick="window.location.href='subscription-plans.html'" class="text-purple-300 hover:text-white font-semibold underline underline-offset-4 transition-colors">
+                    View Pricing Plans →
+                </button>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-400 mb-2">100%</div>
+                    <div class="text-gray-300">Browser-Based</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-2">Real-Time</div>
+                    <div class="text-gray-300">Collaboration</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-400 mb-2">Instant</div>
+                    <div class="text-gray-300">Setup</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-3 mb-4 md:mb-0">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-8 h-8">
+                    <span class="text-xl font-bold text-gray-800">CollabMeet</span>
+                </a>
+                <nav class="flex space-x-6">
+                    <a href="about.html" class="text-gray-600 hover:text-gray-800">About CollabMeet</a>
+                    <a href="privacy.html" class="text-gray-600 hover:text-gray-800">Privacy</a>
+                    <a href="terms.html" class="text-gray-600 hover:text-gray-800">Terms</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

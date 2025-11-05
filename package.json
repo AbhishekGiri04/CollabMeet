@@ -1,0 +1,29 @@
+{
+  "name": "collabmeet",
+  "version": "1.0.0",
+  "description": "Real-time collaboration platform with video calls and whiteboard",
+  "main": "backend/websocket-server.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-deps": "cd backend && npm install",
+    "setup": "npm run install-deps && echo 'Setup complete! Run: npm start'"
+  },
+  "keywords": [
+    "collaboration",
+    "video-calls",
+    "whiteboard",
+    "webrtc",
+    "websocket",
+    "real-time"
+  ],
+  "author": "CollabMeet Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/collabmeet.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

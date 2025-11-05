@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Features - CollabMeet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" type="image/png">
+    <style>
+        .accessibility-card:hover { transform: translateY(-4px); transition: all 0.3s ease; }
+        .feature-demo { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .accessibility-metric { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .feature-item:hover { background: #f8fafc; transform: scale(1.02); }
+        .demo-toggle { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-10 h-10">
+                    <span class="text-2xl font-bold text-gray-900">CollabMeet</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleHighContrast()" class="demo-toggle bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg text-sm font-medium">
+                        <i class="fas fa-adjust mr-2"></i>High Contrast
+                    </button>
+                    <a href="documentation.html" class="text-blue-600 hover:text-blue-800 transition-colors">← Back to Docs</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 text-white py-24">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <span class="inline-block bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-medium mb-6 border border-white/20">
+                    ⌛️ Inclusive Design
+                </span>
+            </div>
+            <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/20">
+                <i class="fas fa-universal-access text-4xl"></i>
+            </div>
+            <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-white to-purple-100 bg-clip-text text-transparent">
+                Accessibility Features
+            </h1>
+            <p class="text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
+                Making collaboration accessible for everyone with comprehensive accessibility features and inclusive design principles.
+            </p>
+        </div>
+    </section>
+
+    <!-- Accessibility Metrics -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="accessibility-metric text-white p-6 rounded-2xl mb-4">
+                        <i class="fas fa-eye text-4xl mb-2"></i>
+                        <div class="text-3xl font-bold">WCAG 2.1</div>
+                    </div>
+                    <h3 class="font-bold text-gray-900">AA Compliant</h3>
+                    <p class="text-gray-600 text-sm">Web accessibility standards</p>
+                </div>
+                <div class="text-center">
+                    <div class="accessibility-metric text-white p-6 rounded-2xl mb-4">
+                        <i class="fas fa-keyboard text-4xl mb-2"></i>
+                        <div class="text-3xl font-bold">100%</div>
+                    </div>
+                    <h3 class="font-bold text-gray-900">Keyboard Navigation</h3>
+                    <p class="text-gray-600 text-sm">Full keyboard accessibility</p>
+                </div>
+                <div class="text-center">
+                    <div class="accessibility-metric text-white p-6 rounded-2xl mb-4">
+                        <i class="fas fa-volume-up text-4xl mb-2"></i>
+                        <div class="text-3xl font-bold">Real-time</div>
+                    </div>
+                    <h3 class="font-bold text-gray-900">Live Captions</h3>
+                    <p class="text-gray-600 text-sm">AI-powered transcription</p>
+                </div>
+                <div class="text-center">
+                    <div class="accessibility-metric text-white p-6 rounded-2xl mb-4">
+                        <i class="fas fa-microphone text-4xl mb-2"></i>
+                        <div class="text-3xl font-bold">Voice</div>
+                    </div>
+                    <h3 class="font-bold text-gray-900">Control</h3>
+                    <p class="text-gray-600 text-sm">Hands-free operation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-6 max-w-7xl">
+            
+            <!-- Visual Accessibility -->
+            <div class="mb-16">
+                <div class="bg-gradient-to-br from-white to-blue-50 rounded-3xl shadow-2xl overflow-hidden accessibility-card">
+                    <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-eye text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-4xl font-bold text-white mb-2">Visual Accessibility</h2>
+                                <p class="text-blue-100">Comprehensive visual support for all users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-blue-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-gray-700 to-black rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-adjust text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">High Contrast Mode</h3>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">Enhanced contrast ratios for better visibility and reduced eye strain.</p>
+                                    <button onclick="toggleHighContrast()" class="bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-lg text-blue-700 font-medium transition-colors">
+                                        <i class="fas fa-toggle-off mr-2"></i>Try High Contrast
+                                    </button>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-blue-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-text-height text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Adjustable Font Sizes</h3>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">Scalable text from 12px to 24px with preserved layout integrity.</p>
+                                    <div class="flex gap-2">
+                                        <button onclick="changeFontSize('small')" class="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded text-sm">A</button>
+                                        <button onclick="changeFontSize('medium')" class="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded text-base">A</button>
+                                        <button onclick="changeFontSize('large')" class="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded text-lg">A</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-blue-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-assistive-listening-systems text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Screen Reader Support</h3>
+                                    </div>
+                                    <p class="text-gray-600">Full compatibility with NVDA, JAWS, VoiceOver, and TalkBack screen readers.</p>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-blue-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-palette text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Color Blind Friendly</h3>
+                                    </div>
+                                    <p class="text-gray-600">Designed for all types of color vision deficiency with alternative visual cues.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Features -->
+            <div class="mb-16">
+                <div class="bg-gradient-to-br from-white to-green-50 rounded-3xl shadow-2xl overflow-hidden accessibility-card">
+                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-volume-up text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-4xl font-bold text-white mb-2">Audio Features</h2>
+                                <p class="text-green-100">Advanced audio accessibility and enhancement</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-green-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-closed-captioning text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Live Captions</h3>
+                                    </div>
+                                    <p class="text-gray-600">Real-time AI-powered speech-to-text with 95%+ accuracy in multiple languages.</p>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-green-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-audio-description text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Audio Descriptions</h3>
+                                    </div>
+                                    <p class="text-gray-600">Detailed audio descriptions of visual content and screen reader announcements.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-green-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-wave-square text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Noise Cancellation</h3>
+                                    </div>
+                                    <p class="text-gray-600">Advanced AI noise reduction for clearer audio in noisy environments.</p>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-green-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-sliders-h text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Volume Controls</h3>
+                                    </div>
+                                    <p class="text-gray-600">Individual volume controls for each participant and audio enhancement options.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motor Accessibility -->
+            <div class="mb-16">
+                <div class="bg-gradient-to-br from-white to-purple-50 rounded-3xl shadow-2xl overflow-hidden accessibility-card">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-hand-paper text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-4xl font-bold text-white mb-2">Motor Accessibility</h2>
+                                <p class="text-purple-100">Alternative input methods for all abilities</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-purple-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-keyboard text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Keyboard Navigation</h3>
+                                    </div>
+                                    <p class="text-gray-600 mb-4">Complete keyboard navigation with logical tab order and keyboard shortcuts.</p>
+                                    <div class="bg-gray-100 p-3 rounded-lg">
+                                        <code class="text-sm text-gray-700">Tab, Shift+Tab, Enter, Space, Arrow Keys</code>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-purple-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-microphone text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Voice Commands</h3>
+                                    </div>
+                                    <p class="text-gray-600">Hands-free control with natural language voice commands and speech recognition.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-purple-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-toggle-on text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Switch Control Support</h3>
+                                    </div>
+                                    <p class="text-gray-600">Compatible with external switches and adaptive hardware for users with limited mobility.</p>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-purple-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-hand-point-up text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Gesture Alternatives</h3>
+                                    </div>
+                                    <p class="text-gray-600">Alternative methods for all gesture-based interactions with customizable controls.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cognitive Support -->
+            <div class="mb-16">
+                <div class="bg-gradient-to-br from-white to-orange-50 rounded-3xl shadow-2xl overflow-hidden accessibility-card">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-500 p-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-brain text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-4xl font-bold text-white mb-2">Cognitive Support</h2>
+                                <p class="text-orange-100">Simplified interfaces and clear navigation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-orange-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-layer-group text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Simple Interface Mode</h3>
+                                    </div>
+                                    <p class="text-gray-600">Streamlined interface with reduced complexity and essential features only.</p>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-orange-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-crosshairs text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Focus Indicators</h3>
+                                    </div>
+                                    <p class="text-gray-600">Clear visual focus indicators with high contrast outlines and animations.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="feature-item p-6 rounded-xl border border-orange-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-route text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Clear Navigation</h3>
+                                    </div>
+                                    <p class="text-gray-600">Intuitive navigation with breadcrumbs, clear labels, and predictable interactions.</p>
+                                </div>
+                                
+                                <div class="feature-item p-6 rounded-xl border border-orange-200 transition-all duration-300">
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-th-large text-white"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-900">Consistent Layouts</h3>
+                                    </div>
+                                    <p class="text-gray-600">Predictable layouts with consistent placement of elements across all pages.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility Resources -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-12 text-center text-white">
+                <i class="fas fa-heart text-5xl mb-6 text-pink-400"></i>
+                <h2 class="text-3xl font-bold mb-4">Accessibility Commitment</h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    We're committed to making CollabMeet accessible to everyone. If you encounter any accessibility barriers, please let us know.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="mailto:abhishekgiri1978@gmail.com" class="bg-pink-600 hover:bg-pink-700 px-8 py-4 rounded-xl font-semibold transition-colors">
+                        <i class="fas fa-envelope mr-2"></i>Report Accessibility Issue
+                    </a>
+                    <a href="#" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-xl font-semibold transition-colors">
+                        <i class="fas fa-download mr-2"></i>Accessibility Guide
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let highContrastMode = false;
+        let currentFontSize = 'medium';
+
+        function toggleHighContrast() {
+            highContrastMode = !highContrastMode;
+            if (highContrastMode) {
+                document.body.style.filter = 'contrast(150%) brightness(0.9)';
+                document.querySelector('.demo-toggle').innerHTML = '<i class="fas fa-toggle-on mr-2"></i>High Contrast';
+            } else {
+                document.body.style.filter = 'none';
+                document.querySelector('.demo-toggle').innerHTML = '<i class="fas fa-toggle-off mr-2"></i>High Contrast';
+            }
+        }
+
+        function changeFontSize(size) {
+            const sizes = {
+                'small': '14px',
+                'medium': '16px',
+                'large': '18px'
+            };
+            document.body.style.fontSize = sizes[size];
+            currentFontSize = size;
+        }
+
+        // Keyboard navigation demo
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                // Enhanced focus indicators
+                setTimeout(() => {
+                    const focused = document.activeElement;
+                    if (focused && focused !== document.body) {
+                        focused.style.outline = '3px solid #3b82f6';
+                        focused.style.outlineOffset = '2px';
+                    }
+                }, 10);
+            }
+        });
+
+        document.addEventListener('blur', function(e) {
+            if (e.target.style.outline) {
+                e.target.style.outline = '';
+                e.target.style.outlineOffset = '';
+            }
+        }, true);
+    </script>
+</body>
+</html>

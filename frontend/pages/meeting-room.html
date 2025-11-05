@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabMeet - Video Call</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/video-call-manager.js"></script>
+</head>
+<body class="bg-gray-900">
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-80">
+            <div id="toast-icon" class="w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fas fa-check text-white"></i>
+            </div>
+            <div class="flex-1">
+                <div id="toast-title" class="font-medium text-gray-900"></div>
+                <div id="toast-message" class="text-sm text-gray-600"></div>
+            </div>
+            <button onclick="hideToast()" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-phone-alt text-red-600" style="transform: rotate(225deg);"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900" id="end-call-title">Leave Meeting</h3>
+            </div>
+            <p class="text-gray-600 mb-6" id="end-call-message">You're about to leave this meeting. Other participants will continue without you.</p>
+            <div class="flex gap-3 justify-end">
+                <button onclick="hideConfirmation()" class="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    Cancel
+                </button>
+                <button onclick="confirmEndCall()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors" id="end-call-btn">
+                    Leave meeting
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admission Request Modal -->
+    <div id="admission-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user-plus text-blue-600"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900">Join Request</h3>
+            </div>
+            <p class="text-gray-600 mb-6">
+                <span id="request-user-name">Someone</span> wants to join the meeting.
+            </p>
+            <div class="flex gap-3 justify-end">
+                <button onclick="rejectUser()" class="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    Reject
+                </button>
+                <button onclick="admitUser()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+                    Admit
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Waiting Modal -->
+    <div id="waiting-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-clock text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Waiting for Host</h3>
+            <p class="text-gray-600 mb-4">Please wait while the host reviews your request to join the meeting.</p>
+            <div class="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
+        </div>
+    </div>
+    
+    <!-- Name Entry Modal -->
+    <div id="name-entry-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-blue-600 text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Join Meeting</h3>
+                    <p class="text-sm text-gray-600">Enter your name to join the meeting</p>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <label for="participant-name" class="block text-sm font-medium text-gray-700 mb-2">
+                    Your Name
+                </label>
+                <input type="text" id="participant-name" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter your full name" maxlength="50">
+                <p class="text-xs text-gray-500 mt-1">This name will be visible to other participants</p>
+            </div>
+            
+            <div class="flex gap-3 justify-end">
+                <button onclick="cancelNameEntry()" class="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    Cancel
+                </button>
+                <button onclick="confirmNameEntry()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                    Join Meeting
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Meeting Ended Modal -->
+    <div id="meeting-ended-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-phone-slash text-red-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Meeting Ended</h3>
+            <p class="text-gray-600 mb-6" id="meeting-ended-message">The meeting has been ended by the host.</p>
+            
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-600">Meeting Duration:</span>
+                    <span class="font-medium text-gray-900" id="meeting-duration">--:--</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 justify-center">
+                <button onclick="returnToHome()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                    Return to Home
+                </button>
+                <button onclick="startNewMeeting()" class="px-6 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg transition-colors">
+                    Start New Meeting
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Rejection Modal -->
+    <div id="rejection-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user-times text-orange-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Access Denied</h3>
+            <p class="text-gray-600 mb-6">The host has denied your request to join this meeting.</p>
+            
+            <div class="flex gap-3 justify-center">
+                <button onclick="returnToHome()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                    Return to Home
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="bg-white border-b border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-8 h-8">
+                    <h1 class="text-xl font-semibold text-gray-800">CollabMeet</h1>
+                </div>
+                <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full" id="meeting-id">Meeting ID: ik21qoj3d</span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="copyMeetingLink()" class="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <i class="fas fa-copy"></i>
+                    Copy meeting link
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="flex h-[calc(100vh-80px)]">
+        <!-- Video Area -->
+        <div class="flex-1 relative">
+            <div class="relative h-full bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                <!-- Video Grid -->
+                <div id="video-grid" class="grid grid-cols-1 gap-4 max-w-4xl mx-auto p-8">
+                    <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video">
+                        <video id="localVideo" class="w-full h-full object-cover" autoplay muted playsinline controls="false"></video>
+                        <div class="absolute bottom-3 left-3 bg-black bg-opacity-60 text-white px-2 py-1 rounded text-sm" id="local-label">
+                            You (Loading...)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 bg-gray-800 rounded-full px-8 py-4 shadow-2xl">
+                    <button id="muteBtn" onclick="toggleMute()" class="w-14 h-14 bg-gray-700 hover:bg-gray-600 text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    
+                    <button id="videoBtn" onclick="toggleVideo()" class="w-14 h-14 bg-gray-700 hover:bg-gray-600 text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    
+                    <button onclick="shareScreen()" class="w-14 h-14 bg-gray-700 hover:bg-gray-600 text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    
+                    <button onclick="openWhiteboard()" class="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors" id="whiteboard-btn">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    
+                    <button onclick="endCall()" class="w-14 h-14 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-phone-alt" style="transform: rotate(225deg);"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-80 bg-white border-l border-gray-200 flex flex-col h-full max-h-screen overflow-hidden">
+            <!-- Participants -->
+            <div class="p-4 border-b border-gray-200">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-medium text-gray-700 flex items-center gap-2">
+                        <i class="fas fa-users text-blue-600"></i>
+                        People (<span id="participant-count">1</span>)
+                    </h3>
+                </div>
+                <div id="participants-list" class="space-y-2">
+                    <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                            Y
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">You</div>
+                            <div class="text-xs text-gray-500">Host</div>
+                        </div>
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat -->
+            <div class="flex-1 flex flex-col min-h-0">
+                <div class="p-4 border-b border-gray-200">
+                    <h3 class="font-medium text-gray-700 flex items-center gap-2">
+                        <i class="fas fa-comments text-green-600"></i>
+                        Chat with everyone
+                    </h3>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto p-4" id="chat-messages">
+                    <div class="text-sm mb-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xs font-bold">S</span>
+                            </div>
+                            <span class="text-blue-600 font-semibold">System</span>
+                            <span class="text-xs text-gray-500" id="system-time">now</span>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg px-4 py-3 text-gray-800 shadow-sm">
+                            <p class="font-semibold text-blue-800 mb-2">Welcome to CollabMeet Professional</p>
+                            <p class="text-sm text-gray-700">Meeting room is ready. You can start video call and use whiteboard for collaboration.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 border-t border-gray-200 bg-white">
+                    <div class="flex gap-2">
+                        <input type="text" id="chat-input" placeholder="Type your message here..." 
+                               class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <button onclick="sendMessage()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Video call functionality with real WebRTC
+        let webrtcManager = null;
+        let isMuted = false;
+        let isVideoOff = false;
+
+        // Get user name and role
+        let userName = 'You';
+        let userRole = 'participant';
+        let isHost = false;
+        let currentAdmissionRequest = null;
+        
+        // Initialize video call
+        async function initVideoCall() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const sessionId = urlParams.get('session');
+                const role = urlParams.get('role');
+                
+                console.log('Initializing video call with session:', sessionId, 'role:', role);
+                
+                // Determine if user is host
+                isHost = role === 'admin' || role === 'host';
+                userRole = isHost ? 'host' : 'participant';
+                
+                // Get user name
+                if (isHost) {
+                    userName = 'Host';
+                    document.getElementById('local-label').textContent = 'You (Host)';
+                } else {
+                    // Show professional name entry modal
+                    const name = await showNameEntryModal();
+                    if (name && name.trim()) {
+                        userName = name.trim();
+                    } else {
+                        userName = 'Participant ' + Math.floor(Math.random() * 100);
+                    }
+                    document.getElementById('local-label').textContent = `You (${userName})`;
+                }
+                
+                // Validate session for participants
+                if (!isHost && (!sessionId || sessionId.length < 8)) {
+                    showToast('error', 'Invalid Meeting ID', 'Please get a valid meeting ID from the host.');
+                    setTimeout(() => window.location.href = '../index.html', 2000);
+                    return;
+                }
+                
+                // Generate new session for host or use provided session
+                const finalSessionId = sessionId || Math.random().toString(36).substr(2, 9);
+                document.getElementById('meeting-id').textContent = `Meeting ID: ${finalSessionId}`;
+                
+                console.log('Final session ID:', finalSessionId, 'Is host:', isHost);
+                
+                // Initialize WebRTC manager with admission control
+                webrtcManager = new WebRTCManager(finalSessionId, isHost, userName);
+                webrtcManager.onAdmissionRequest = handleAdmissionRequest;
+                webrtcManager.onWaitingForAdmission = showWaitingModal;
+                webrtcManager.onAdmitted = hideWaitingModal;
+                webrtcManager.onRejected = handleRejection;
+                webrtcManager.onMeetingEnded = handleMeetingEnded;
+                
+                // Add callback for when local video is ready
+                webrtcManager.onLocalVideoReady = () => {
+                    document.getElementById('local-label').textContent = isHost ? 'You (Host)' : `You (${userName})`;
+                    showToast('success', 'Camera Ready', 'Your video is now active');
+                };
+                
+                // Store user name in webrtc manager
+                webrtcManager.myUserName = userName;
+                
+                // Initial participants list update
+                setTimeout(() => {
+                    updateParticipantsList(1, [], userName, isHost);
+                    
+                    // Hide whiteboard button for participants
+                    if (!isHost) {
+                        document.getElementById('whiteboard-btn').style.display = 'none';
+                    }
+                }, 1000);
+                
+                showToast('success', 'Joining Meeting', 'Connecting to video call...');
+                
+            } catch (error) {
+                console.error('Error initializing video call:', error);
+                showToast('error', 'Connection Failed', 'Could not connect to meeting server.');
+            }
+        }
+
+        // Toggle mute
+        function toggleMute() {
+            if (webrtcManager) {
+                isMuted = webrtcManager.toggleMute();
+                
+                const muteBtn = document.getElementById('muteBtn');
+                if (isMuted) {
+                    muteBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                    muteBtn.classList.add('bg-red-600');
+                    muteBtn.classList.remove('bg-gray-700');
+                } else {
+                    muteBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                    muteBtn.classList.remove('bg-red-600');
+                    muteBtn.classList.add('bg-gray-700');
+                }
+            }
+        }
+
+        // Toggle video
+        function toggleVideo() {
+            if (webrtcManager) {
+                isVideoOff = webrtcManager.toggleVideo();
+                
+                const videoBtn = document.getElementById('videoBtn');
+                if (isVideoOff) {
+                    videoBtn.innerHTML = '<i class="fas fa-video-slash"></i>';
+                    videoBtn.classList.add('bg-red-600');
+                    videoBtn.classList.remove('bg-gray-700');
+                } else {
+                    videoBtn.innerHTML = '<i class="fas fa-video"></i>';
+                    videoBtn.classList.remove('bg-red-600');
+                    videoBtn.classList.add('bg-gray-700');
+                }
+            }
+        }
+
+        // Share screen
+        async function shareScreen() {
+            if (webrtcManager) {
+                await webrtcManager.shareScreen();
+                showToast('success', 'Screen Sharing', 'Your screen is now being shared.');
+            }
+        }
+
+        // Open whiteboard and notify all participants
+        function openWhiteboard() {
+            if (webrtcManager) {
+                // Mark as transitioning to prevent leave messages
+                sessionStorage.setItem('whiteboard_transitioning', 'true');
+                
+                // Store connection info before switching
+                sessionStorage.setItem('webrtc_session', JSON.stringify({
+                    sessionId: webrtcManager.sessionId,
+                    userId: webrtcManager.userId,
+                    userName: webrtcManager.myUserName,
+                    isHost: isHost,
+                    participantNames: Array.from(webrtcManager.participantNames.entries())
+                }));
+                
+                // Notify all participants to switch to whiteboard
+                webrtcManager.sendMessage({
+                    type: 'switch-to-whiteboard',
+                    sessionId: webrtcManager.sessionId,
+                    hostName: webrtcManager.myUserName,
+                    isTransition: true
+                });
+            }
+            
+            // Show transition message
+            displayChatMessage('System', 'Opening collaborative whiteboard...');
+            
+            // Redirect host to whiteboard with session info
+            setTimeout(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const sessionId = urlParams.get('session');
+                window.location.href = `collaborative-board.html?session=${sessionId}&role=admin&from=videocall`;
+            }, 1000);
+        }
+
+        // End call
+        function endCall() {
+            if (isHost) {
+                document.getElementById('end-call-title').textContent = 'End Meeting';
+                document.getElementById('end-call-message').textContent = 'You are about to end the meeting for all participants.';
+                document.getElementById('end-call-btn').textContent = 'End Meeting';
+            } else {
+                document.getElementById('end-call-title').textContent = 'Leave Meeting';
+                document.getElementById('end-call-message').textContent = 'You are about to leave this meeting.';
+                document.getElementById('end-call-btn').textContent = 'Leave Meeting';
+            }
+            showConfirmation();
+        }
+
+        function confirmEndCall() {
+            hideConfirmation();
+            
+            if (isHost) {
+                // Host ends meeting for everyone
+                if (webrtcManager) {
+                    webrtcManager.endMeeting();
+                }
+                // Show meeting ended modal for host
+                setTimeout(() => {
+                    handleMeetingEnded();
+                }, 500);
+            } else {
+                // Participant leaves meeting
+                if (webrtcManager) {
+                    webrtcManager.disconnect();
+                }
+                // Direct redirect for participant leaving
+                window.location.href = '../index.html';
+            }
+        }
+        
+        // Admission control functions
+        function handleAdmissionRequest(data) {
+            currentAdmissionRequest = data;
+            document.getElementById('request-user-name').textContent = data.userName;
+            document.getElementById('admission-modal').classList.remove('hidden');
+        }
+        
+        function admitUser() {
+            if (currentAdmissionRequest && webrtcManager) {
+                webrtcManager.admitUser(currentAdmissionRequest.userId);
+                document.getElementById('admission-modal').classList.add('hidden');
+                currentAdmissionRequest = null;
+            }
+        }
+        
+        function rejectUser() {
+            if (currentAdmissionRequest && webrtcManager) {
+                webrtcManager.rejectUser(currentAdmissionRequest.userId);
+                document.getElementById('admission-modal').classList.add('hidden');
+                currentAdmissionRequest = null;
+            }
+        }
+        
+        function showWaitingModal() {
+            document.getElementById('waiting-modal').classList.remove('hidden');
+        }
+        
+        function hideWaitingModal() {
+            document.getElementById('waiting-modal').classList.add('hidden');
+        }
+        
+        function handleRejection() {
+            document.getElementById('rejection-modal').classList.remove('hidden');
+        }
+        
+        function handleMeetingEnded() {
+            // Calculate meeting duration
+            const duration = calculateMeetingDuration();
+            document.getElementById('meeting-duration').textContent = duration;
+            
+            // Show appropriate message based on role
+            const message = isHost ? 
+                'You have successfully ended the meeting for all participants.' :
+                'The host has ended the meeting. Thank you for participating.';
+            document.getElementById('meeting-ended-message').textContent = message;
+            
+            document.getElementById('meeting-ended-modal').classList.remove('hidden');
+        }
+        
+        function calculateMeetingDuration() {
+            // Simple duration calculation (you can enhance this)
+            const now = new Date();
+            const start = sessionStorage.getItem('meetingStartTime');
+            if (start) {
+                const duration = Math.floor((now - new Date(start)) / 1000 / 60);
+                return `${duration} min`;
+            }
+            return '--:--';
+        }
+        
+        function returnToHome() {
+            // Close any open modals first
+            document.getElementById('meeting-ended-modal').classList.add('hidden');
+            document.getElementById('rejection-modal').classList.add('hidden');
+            
+            // Clear session storage
+            sessionStorage.clear();
+            
+            // Redirect to home
+            window.location.href = '../index.html';
+        }
+        
+        function startNewMeeting() {
+            // Close modal
+            document.getElementById('meeting-ended-modal').classList.add('hidden');
+            
+            // Clear session storage
+            sessionStorage.clear();
+            
+            // Generate new session and redirect
+            const newSessionId = Math.random().toString(36).substr(2, 9);
+            window.location.href = `meeting-room.html?session=${newSessionId}&role=admin`;
+        }
+
+        // Copy meeting link
+        function copyMeetingLink() {
+            const meetingId = document.getElementById('meeting-id').textContent;
+            navigator.clipboard.writeText(meetingId).then(() => {
+                showToast('success', 'Meeting ID Copied', 'Meeting ID copied to clipboard!');
+            }).catch(() => {
+                showToast('error', 'Copy Failed', 'Failed to copy meeting ID.');
+            });
+        }
+
+
+
+        // Toast notification functions
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const titleEl = document.getElementById('toast-title');
+            const messageEl = document.getElementById('toast-message');
+            
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+            
+            if (type === 'success') {
+                icon.className = 'w-8 h-8 bg-green-500 rounded-full flex items-center justify-center';
+                icon.innerHTML = '<i class="fas fa-check text-white"></i>';
+            } else if (type === 'error') {
+                icon.className = 'w-8 h-8 bg-red-500 rounded-full flex items-center justify-center';
+                icon.innerHTML = '<i class="fas fa-times text-white"></i>';
+            }
+            
+            toast.classList.remove('translate-x-full');
+            toast.classList.add('translate-x-0');
+            
+            setTimeout(() => {
+                hideToast();
+            }, 4000);
+        }
+        
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-x-0');
+            toast.classList.add('translate-x-full');
+        }
+        
+        function showConfirmation() {
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        }
+        
+        function hideConfirmation() {
+            document.getElementById('confirmation-modal').classList.add('hidden');
+        }
+
+        // WebSocket for chat
+        let chatWs = null;
+        
+        function initChatWebSocket(sessionId, userRole) {
+            // Prevent duplicate connections
+            if (chatWs && chatWs.readyState === WebSocket.OPEN) {
+                console.log('Chat WebSocket already connected');
+                return;
+            }
+            
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}`;
+            
+            chatWs = new WebSocket(wsUrl);
+            
+            chatWs.onopen = function() {
+                console.log('Chat WebSocket connected');
+                chatWs.send(JSON.stringify({
+                    type: 'join',
+                    sessionId: sessionId,
+                    userRole: userRole,
+                    userName: userName,
+                    userId: 'chat_' + Math.random().toString(36).substr(2, 9)
+                }));
+            };
+            
+            // Chat messages now handled by WebRTC manager
+            chatWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                console.log('Message received:', data);
+                
+                if (data.type === 'user-joined') {
+                    updateParticipantCount(data.participantCount);
+                    displayChatMessage('System', `${data.userName} joined the meeting`);
+                } else if (data.type === 'user-left') {
+                    updateParticipantCount(data.participantCount);
+                    displayChatMessage('System', `${data.userName} left the meeting`);
+                }
+            };
+        }
+        
+        function displayChatMessage(userName, message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'text-sm mb-3';
+            
+            const isSystem = userName === 'System';
+            // Check if this message is from current user
+            const isYou = (userName === webrtcManager?.myUserName) || 
+                         (userName === 'Host' && isHost) ||
+                         (userName === userName && !isHost);
+            
+            if (isSystem) {
+                // Professional system notifications
+                const isJoinMessage = message.includes('joined');
+                const isLeaveMessage = message.includes('left');
+                const iconClass = isJoinMessage ? 'fa-user-plus text-green-600' : 
+                                 isLeaveMessage ? 'fa-user-minus text-red-600' : 
+                                 'fa-info text-blue-600';
+                
+                messageDiv.innerHTML = `
+                    <div class="flex items-center justify-center mb-2">
+                        <div class="flex items-center gap-2 bg-white px-3 py-1 rounded-full shadow-sm border">
+                            <i class="fas ${iconClass} text-xs"></i>
+                            <span class="text-xs text-gray-600 font-medium">${message}</span>
+                            <span class="text-xs text-gray-400">${timeString}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const initial = userName.charAt(0).toUpperCase();
+                const bgColor = isYou ? 'bg-blue-500' : 'bg-green-500';
+                const displayName = isYou ? (isHost ? 'You (Host)' : `You (${userName})`) : userName;
+                
+                messageDiv.innerHTML = `
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-6 h-6 ${bgColor} rounded-full flex items-center justify-center text-white text-xs font-bold">${initial}</div>
+                        <span class="text-gray-700 font-semibold">${displayName}</span>
+                        <span class="text-xs text-gray-500">${timeString}</span>
+                    </div>
+                    <div class="ml-8 bg-gray-50 rounded-lg px-3 py-2">
+                        <p class="text-gray-700">${message}</p>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function updateParticipantCount(count) {
+            document.getElementById('participant-count').textContent = count;
+        }
+
+        // Send chat message
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message && webrtcManager) {
+                webrtcManager.sendChatMessage(message);
+                input.value = '';
+            }
+        }
+        
+        // Make displayChatMessage globally available
+        window.displayChatMessage = displayChatMessage;
+
+        // Enter key for chat
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function updateParticipantsList(count, participants = [], myUserName = 'You', isHost = false) {
+            const participantsList = document.getElementById('participants-list');
+            const participantCountEl = document.getElementById('participant-count');
+            
+            // Ensure count is at least 1 (for self)
+            const actualCount = Math.max(count || 1, participants.length + 1);
+            participantCountEl.textContent = actualCount;
+            
+            // Clear all participants
+            participantsList.innerHTML = '';
+            
+            // Add "You" first
+            const youDiv = document.createElement('div');
+            youDiv.className = 'flex items-center gap-3 p-2 hover:bg-gray-50 rounded';
+            const youRole = isHost ? 'Host' : 'Participant';
+            const youInitial = (myUserName || 'Y').charAt(0).toUpperCase();
+            const displayName = isHost ? 'You (Host)' : `You (${myUserName})`;
+            youDiv.innerHTML = `
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                    ${youInitial}
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-gray-900">${displayName}</div>
+                    <div class="text-xs text-gray-500">${youRole}</div>
+                </div>
+                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+            `;
+            participantsList.appendChild(youDiv);
+            
+            // Add other participants
+            participants.forEach(participant => {
+                if (participant.id !== (webrtcManager?.userId)) {
+                    const participantDiv = document.createElement('div');
+                    participantDiv.className = 'flex items-center gap-3 p-2 hover:bg-gray-50 rounded';
+                    const participantRole = isHost ? 'Participant' : 'Host';
+                    const participantInitial = participant.name.charAt(0).toUpperCase();
+                    participantDiv.innerHTML = `
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                            ${participantInitial}
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">${participant.name}</div>
+                            <div class="text-xs text-gray-500">${participantRole}</div>
+                        </div>
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                    `;
+                    participantsList.appendChild(participantDiv);
+                }
+            });
+        }
+        
+        // Professional name entry modal functions
+        let nameEntryResolve = null;
+        
+        function showNameEntryModal() {
+            return new Promise((resolve) => {
+                nameEntryResolve = resolve;
+                document.getElementById('name-entry-modal').classList.remove('hidden');
+                document.getElementById('participant-name').focus();
+            });
+        }
+        
+        function confirmNameEntry() {
+            const name = document.getElementById('participant-name').value.trim();
+            if (name) {
+                document.getElementById('name-entry-modal').classList.add('hidden');
+                if (nameEntryResolve) {
+                    nameEntryResolve(name);
+                    nameEntryResolve = null;
+                }
+            } else {
+                // Shake animation for empty input
+                const input = document.getElementById('participant-name');
+                input.classList.add('border-red-500');
+                input.placeholder = 'Name is required';
+                setTimeout(() => {
+                    input.classList.remove('border-red-500');
+                    input.placeholder = 'Enter your full name';
+                }, 2000);
+            }
+        }
+        
+        function cancelNameEntry() {
+            document.getElementById('name-entry-modal').classList.add('hidden');
+            if (nameEntryResolve) {
+                nameEntryResolve(null);
+                nameEntryResolve = null;
+            }
+            // Redirect back to home
+            window.location.href = '../index.html';
+        }
+        
+        // Enter key support for name entry
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !document.getElementById('name-entry-modal').classList.contains('hidden')) {
+                confirmNameEntry();
+            }
+        });
+        
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            // Store meeting start time
+            sessionStorage.setItem('meetingStartTime', new Date().toISOString());
+            
+            initVideoCall();
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('system-time').textContent = timeString;
+            
+            // Listen for localStorage changes (cross-tab sync)
+            window.addEventListener('storage', function(e) {
+                if (e.key && e.key.startsWith('meeting_')) {
+                    const sessionData = JSON.parse(e.newValue || '{}');
+                    if (sessionData.participants) {
+                        updateParticipantsList(sessionData.participants);
+                    }
+                }
+            });
+        });
+        
+        // Simulate real-time updates
+        setInterval(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session') || document.getElementById('meeting-id').textContent.replace('Meeting ID: ', '');
+            const sessionKey = `meeting_${sessionId}`;
+            const sessionData = JSON.parse(localStorage.getItem(sessionKey) || '{}');
+            
+            if (sessionData.participants) {
+                updateParticipantsList(sessionData.participants);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

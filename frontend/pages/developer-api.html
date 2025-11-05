@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - CollabMeet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" type="image/png">
+    <style>
+        .code-block { background: #1e293b; color: #e2e8f0; }
+        .method-get { background: #10b981; }
+        .method-post { background: #3b82f6; }
+        .method-put { background: #f59e0b; }
+        .method-delete { background: #ef4444; }
+        .copy-btn:hover { background: #374151; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS82llvxHxIsbFXQ7RlsjhK2qaRjGaE0k6ew&s" alt="CollabMeet Logo" class="w-10 h-10">
+                    <span class="text-2xl font-bold text-gray-900">CollabMeet</span>
+                </a>
+                <a href="documentation.html" class="text-blue-600 hover:text-blue-800 transition-colors">← Back to Docs</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-800 text-white py-24">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <span class="inline-block bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full text-sm font-medium mb-6 border border-white/20">
+                    📚 Developer Resources
+                </span>
+            </div>
+            <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/20">
+                <i class="fas fa-code text-4xl"></i>
+            </div>
+            <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                API Reference
+            </h1>
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                Complete API documentation with examples, authentication, and real-time WebSocket events for seamless integration.
+            </p>
+        </div>
+    </section>
+
+    <div class="flex">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white shadow-lg h-screen sticky top-16 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Navigation</h3>
+                <ul class="space-y-2">
+                    <li><a href="#auth" class="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"><i class="fas fa-lock w-4"></i> Authentication</a></li>
+                    <li><a href="#whiteboard" class="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"><i class="fas fa-chalkboard w-4"></i> Whiteboard API</a></li>
+                    <li><a href="#ai" class="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"><i class="fas fa-brain w-4"></i> AI Services</a></li>
+                    <li><a href="#websocket" class="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"><i class="fas fa-bolt w-4"></i> WebSocket Events</a></li>
+                    <li><a href="#examples" class="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"><i class="fas fa-code w-4"></i> Code Examples</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <div class="max-w-5xl mx-auto space-y-12">
+                
+                <!-- Authentication Section -->
+                <section id="auth" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-lock text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-white">Authentication</h2>
+                                <p class="text-blue-100">Secure user authentication and session management</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 space-y-6">
+                        
+                        <!-- Login Endpoint -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/auth/login</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/auth/login')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600 mb-4">Authenticate user and receive access token</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Request Body:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "email": "user@example.com",
+  "password": "password123"
+}</pre>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Response:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "token": "jwt_token_here",
+  "user": {
+    "id": "user_id",
+    "email": "user@example.com"
+  }
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Register Endpoint -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/auth/register</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/auth/register')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600 mb-4">Create new user account</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Request Body:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}</pre>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Response:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "message": "User created",
+  "userId": "new_user_id"
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Refresh Token -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/auth/refresh</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/auth/refresh')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600">Refresh expired access token</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Whiteboard API Section -->
+                <section id="whiteboard" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chalkboard text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-white">Whiteboard API</h2>
+                                <p class="text-green-100">Manage collaborative whiteboard sessions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 space-y-6">
+                        
+                        <!-- Get Whiteboard -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-get text-white px-3 py-1 rounded-lg text-sm font-bold">GET</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/whiteboard/{sessionId}</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/whiteboard/{sessionId}')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600">Retrieve whiteboard session data and drawing elements</p>
+                            </div>
+                        </div>
+
+                        <!-- Create Whiteboard -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/whiteboard/create</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/whiteboard/create')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600 mb-4">Create new whiteboard session</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Request Body:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "name": "Project Meeting",
+  "isPrivate": false,
+  "maxUsers": 10
+}</pre>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Response:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "sessionId": "wb_123456",
+  "joinUrl": "/whiteboard/wb_123456"
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Update Whiteboard -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-put text-white px-3 py-1 rounded-lg text-sm font-bold">PUT</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/whiteboard/{sessionId}/update</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/whiteboard/{sessionId}/update')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600">Update whiteboard settings or add drawing elements</p>
+                            </div>
+                        </div>
+
+                        <!-- Delete Whiteboard -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-delete text-white px-3 py-1 rounded-lg text-sm font-bold">DELETE</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/whiteboard/{sessionId}</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/whiteboard/{sessionId}')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600">Delete whiteboard session and all associated data</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AI Services Section -->
+                <section id="ai" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-brain text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-white">AI Services</h2>
+                                <p class="text-purple-100">Intelligent features powered by AI</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 space-y-6">
+                        
+                        <!-- OCR Service -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/ai/ocr</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/ai/ocr')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600 mb-4">Extract text from images using OCR</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Request Body:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "image": "base64_image_data",
+  "language": "en"
+}</pre>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Response:</h4>
+                                        <pre class="code-block p-4 rounded-lg text-sm overflow-x-auto">{
+  "text": "Extracted text",
+  "confidence": 0.95
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shape Detection -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/ai/shape-detection</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/ai/shape-detection')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600">Detect and convert hand-drawn shapes to perfect geometric shapes</p>
+                            </div>
+                        </div>
+
+                        <!-- Summarize -->
+                        <div class="border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="flex items-center justify-between p-4 bg-gray-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="method-post text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
+                                    <code class="text-lg font-mono text-gray-800">/api/ai/summarize</code>
+                                </div>
+                                <button onclick="copyToClipboard('/api/ai/summarize')" class="copy-btn p-2 rounded-lg text-gray-500 hover:text-gray-700 transition-colors">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <p class="text-gray-600">Generate AI-powered summaries of whiteboard content</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- WebSocket Events Section -->
+                <section id="websocket" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-500 p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-bolt text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-white">WebSocket Events</h2>
+                                <p class="text-orange-100">Real-time communication events</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <i class="fas fa-pen text-blue-600"></i>
+                                        <code class="font-mono font-semibold">drawing_update</code>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Broadcast drawing actions to all connected users</p>
+                                </div>
+                                
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <i class="fas fa-mouse-pointer text-green-600"></i>
+                                        <code class="font-mono font-semibold">cursor_move</code>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Share cursor position with other participants</p>
+                                </div>
+                                
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <i class="fas fa-user-plus text-purple-600"></i>
+                                        <code class="font-mono font-semibold">user_join</code>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Notify when a user joins the session</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <i class="fas fa-user-minus text-red-600"></i>
+                                        <code class="font-mono font-semibold">user_leave</code>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Notify when a user leaves the session</p>
+                                </div>
+                                
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <i class="fas fa-comment text-indigo-600"></i>
+                                        <code class="font-mono font-semibold">chat_message</code>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Real-time chat messages between users</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Code Examples Section -->
+                <section id="examples" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-indigo-500 to-blue-500 p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-code text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-white">Code Examples</h2>
+                                <p class="text-indigo-100">Ready-to-use integration examples</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">JavaScript WebSocket Connection</h3>
+                                <pre class="code-block p-6 rounded-lg text-sm overflow-x-auto">const ws = new WebSocket('ws://localhost:8080');
+
+ws.onopen = () => {
+    console.log('Connected to CollabMeet');
+    ws.send(JSON.stringify({
+        type: 'join_session',
+        sessionId: 'your_session_id'
+    }));
+};
+
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.type === 'drawing_update') {
+        // Handle drawing updates
+        updateCanvas(data.drawingData);
+    }
+};</pre>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">API Authentication Example</h3>
+                                <pre class="code-block p-6 rounded-lg text-sm overflow-x-auto">fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        email: 'user@example.com',
+        password: 'password123'
+    })
+})
+.then(response => response.json())
+.then(data => {
+    localStorage.setItem('token', data.token);
+    console.log('Logged in successfully');
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success feedback
+                const btn = event.target.closest('button');
+                const icon = btn.querySelector('i');
+                icon.className = 'fas fa-check';
+                setTimeout(() => {
+                    icon.className = 'fas fa-copy';
+                }, 2000);
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
