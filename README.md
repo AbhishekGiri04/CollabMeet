@@ -165,11 +165,11 @@ CollabMeet - Collaborate. Communicate. Create./
 
 <div align="center">
 
-### 🏠 Home Page
-![Home Page](docs/Home_Page.png)
-
 ### ⏳ Loading Page
 ![Loading Page](docs/Loading_Page.png)
+
+### 🏠 Home Page
+![Home Page](docs/Home_Page.png)
 
 ### 🎨 Collaborative Whiteboard
 ![Whiteboard](docs/WhiteBoard_Page.png)
